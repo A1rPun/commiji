@@ -8,26 +8,24 @@ const exec = util.promisify(childProcess.exec);
 const getTypeEntries = () => [...Object.entries(types), ...Object.entries(extraTypes)];
 const getEmojis = type => (~Object.keys(extraTypes).indexOf(type) ? extraTypes[type] : types[type]);
 
-async function getType(type, noSpecials = false) {
+async function getType(type) {
   if (type) {
     return type;
   }
-  let choices = [
-    ...Object.keys(types),
-    new inquirer.Separator(),
-    ...Object.keys(extraTypes),
-    new inquirer.Separator(),
-  ];
-  if (!noSpecials) {
-    choices = [...choices, ...Object.keys(specials), new inquirer.Separator()];
-  }
+
   const { inputType } = await inquirer.prompt([
     {
       type: 'list',
       name: 'inputType',
       message: 'Type of change?',
-
-      choices,
+      choices: [
+        ...Object.keys(types),
+        new inquirer.Separator(),
+        ...Object.keys(extraTypes),
+        new inquirer.Separator(),
+        ...Object.keys(specials),
+        new inquirer.Separator(),
+      ],
     },
   ]);
   return inputType;
@@ -105,7 +103,7 @@ async function getBreaking(dobreak, nobreak) {
 
 async function getCommitMessage(type, emoji, title, scope, breaking) {
   const separator = breaking ? '!:' : ':';
-  const pass = type === specials.none || type === specials.random;
+  const pass = type === specials.all || type === specials.random;
   const outputs = [];
 
   if (!pass) {
@@ -153,10 +151,10 @@ async function getCommit(ttype, title, scope, dobreak, nobreak) {
   let type = await getType(ttype);
   let emoji;
 
-  if (type === specials.random || type === specials.none) {
+  if (type === specials.random || type === specials.all) {
     let emojis = getTypeEntries();
 
-    if (!ttype && type === specials.none) {
+    if (!ttype && type === specials.all) {
       emoji = await getEmoji(emojis.map(([_, value]) => value).flat());
     } else {
       [emoji, type] = await getRandomEmoji(emojis, true);
@@ -172,10 +170,22 @@ async function getCommit(ttype, title, scope, dobreak, nobreak) {
 }
 
 async function filterCommits(type, commits) {
-  type = await getType(type, true);
-  const emojis = getEmojis(type).flatMap(x => [x.name, x.ascii]);
-  emojis.push(type);
-  return commits.filter(commit => emojis.some(x => ~commit.indexOf(x))).join('\n');
+  type = await getType(type);
+  let filters = [];
+
+  if (type === specials.all) {
+    filters = getTypeEntries().flatMap(([_, value]) => value);
+    type = 'all types';
+  } else if (type === specials.random) {
+    const emojis = getTypeEntries();
+    [type, filters] = emojis[Math.floor(Math.random() * emojis.length)];
+  } else {
+    filters = getEmojis(type);
+  }
+  filters = filters.flatMap(x => [`:${x.name}:`, x.ascii]);
+  console.log(`All commits containing ${type}:`);
+  console.log();
+  return commits.filter(commit => filters.some(x => ~commit.indexOf(x))).join('\n');
 }
 
 async function findCommit(type) {
