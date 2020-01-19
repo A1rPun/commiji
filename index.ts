@@ -1,26 +1,26 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
-const prompt = require('./src/prompt');
+const promptCommit = require('./src/prompt.ts');
 
-// String.fromCharCode(55356, 56806) + 25
 const cli = meow(
   `
-	🇨​ 🇴 ​🇲 ​🇲 ​🇮 ​🇹 ​ 🇪 ​🇲 ​🇴 ​🇯 ​🇮​
+	🇨​ 🇴 ​🇲 ​🇲 ​🇮 ​🇯 ​🇮​
 
 	Synopsis
 	  $ commitemoji <option>
 
-	Options
-	  --help, -h  This help
+	Description
+	  --help, -h  Show this help
 	  --version, -v  Show version
 	  --list, -l  List emoji's
-	  --types, -y  List types
-	  --type, -t  Set type
-	  --title, -c  Set title
-	  --scope, -s  Set scope
-	  --break, -b  Breaking change
-	  --nobreak, -n  Non breaking change
+	  --types, -y  List commit types
+    --find, -f  Find commits
+	  --type, -t  Provide answer for commit type
+	  --title, -c  Provide answer for commit title
+	  --scope, -s  Provide answer for scope
+	  --break, -b  Provide answer with breaking change
+	  --nobreak, -n  Provide answer with non breaking change
 
   Examples
     Basic usage
@@ -32,25 +32,31 @@ const cli = meow(
     Shorter version
     $ commitemoji -c "Test commit" -s example -n
 
+    List all available emoji's
     $ commitemoji -l
 
+    List all available commit types
     $ commitemoji -y
 `,
   {
     flags: {
-      list: {
-        type: 'boolean',
-        alias: 'l',
-      },
       version: {
         alias: 'v',
       },
       help: {
         alias: 'h',
       },
+      list: {
+        type: 'boolean',
+        alias: 'l',
+      },
       types: {
         type: 'boolean',
         alias: 'y',
+      },
+      find: {
+        type: 'boolean',
+        alias: 'f',
       },
       type: {
         type: 'string',
@@ -75,4 +81,4 @@ const cli = meow(
     },
   }
 );
-prompt(cli.flags);
+promptCommit(cli.flags);

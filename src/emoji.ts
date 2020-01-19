@@ -86,4 +86,9 @@ const extraTypes = {
   ],
 };
 
-module.exports = { types, extraTypes };
+const specials = {
+  random: 'random',
+  none: 'none',
+};
+
+module.exports = { types, extraTypes, specials };
