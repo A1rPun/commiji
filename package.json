@@ -1,6 +1,6 @@
 {
-  "name": "commitemoji",
-  "version": "1.0.0",
+  "name": "commiji",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "dependencies": {
