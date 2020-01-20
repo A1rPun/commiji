@@ -20,13 +20,17 @@ async function getType() {
   return inputType;
 }
 
-async function getEmoji(emojis) {
+async function getEmoji(emojis = []) {
   const { emoji } = await inquirer.prompt([
     {
       type: 'list',
       name: 'emoji',
       message: 'Which emoji?',
-      choices: emojis,
+      choices: emojis.map(x => ({
+        name: `${x.ascii} ${x.name}${x.label ? ` ${x.label}` : ''}`,
+        value: x,
+        short: x.ascii,
+      })),
     },
   ]);
   return emoji;

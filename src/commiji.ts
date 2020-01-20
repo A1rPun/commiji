@@ -8,30 +8,21 @@ const exec = util.promisify(childProcess.exec);
 const getTypeEntries = () => [...Object.entries(types), ...Object.entries(extraTypes)];
 const getEmojis = type => (~Object.keys(extraTypes).indexOf(type) ? extraTypes[type] : types[type]);
 
-async function getOptionEmoji(emojis, getFirst = false) {
-  return getFirst
-    ? emojis[0]
-    : await getEmoji(
-        emojis.map(x => ({
-          name: `${x.ascii} ${x.name}${x.label ? ` ${x.label}` : ''}`,
-          value: x,
-          short: x.ascii,
-        }))
-      );
-}
-
 async function getEmojiByType(type, optionType) {
   let emoji;
   if (type === specials.random || type === specials.all) {
-    let emojis = getTypeEntries();
+    const emojis = getTypeEntries();
 
     if (!optionType && type === specials.all) {
-      emoji = await getOptionEmoji(emojis.map(([_, value]) => value).flat());
+      emoji = await getEmoji(emojis.map(([_, value]) => value).flat());
     } else {
-      [emoji, type] = await getRandomEmoji(emojis, true);
+      const [randomType, randomEmojis] = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji = randomEmojis[0];
+      type = randomType;
     }
   } else {
-    emoji = await getOptionEmoji(getEmojis(type), !!optionType);
+    const emojis = getEmojis(type);
+    emoji = !!optionType ? emojis[0] : await getEmoji(emojis);
   }
   return emoji;
 }
@@ -50,12 +41,11 @@ async function getCommitMessage(type, emoji, title, scope, breaking) {
     outputs.push(`${emoji.ascii} ${type}${scope ? `(${scope})` : ''}${separator} ${title}`);
   }
   outputs.push(`${emoji.ascii} ${title}`);
-
   return getMessage(outputs);
 }
 
 function listAllEmojis() {
-  return [...Object.entries(types), ...Object.entries(extraTypes)].reduce(
+  return getTypeEntries().reduce(
     (acc, [key, value]) =>
       acc +
       value
@@ -68,11 +58,6 @@ function listAllEmojis() {
 
 function listAllTypes() {
   return [...Object.keys(types), ...Object.keys(extraTypes), ...Object.keys(specials)].join(', ');
-}
-
-async function getRandomEmoji(emojis, getFirst = false) {
-  const [randomType, randomEmojis] = emojis[Math.floor(Math.random() * emojis.length)];
-  return [await getOptionEmoji(randomEmojis, getFirst), randomType];
 }
 
 async function filterCommits(type, commits) {
@@ -138,12 +123,10 @@ module.exports = async function(options) {
     findCommit(type);
     return;
   }
-
   const emoji = await getEmojiByType(type, hasType);
   const title = options.title === undefined ? await getTitle() : options.title;
   const scope = options.scope === undefined ? await getScope() : options.scope;
   const breaking = options.dobreak || options.nobreak ? !!options.dobreak : await getBreaking();
   const commit = await getCommitMessage(type, emoji, title, scope, breaking);
   execCommit(commit);
-  return commit;
 };

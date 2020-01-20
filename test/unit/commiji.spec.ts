@@ -1,6 +1,5 @@
 const commiji = require('./../../src/commiji.ts');
 
-const defaultInquirerAnswer = 'test';
 jest.mock('inquirer', () => {
   return {
     prompt: x => ({ [x[0].name]: 'test' }),
@@ -32,7 +31,7 @@ describe('Test commiji', () => {
   it('should ask all questions when no flags are set', async () => {
     const flags = {};
     const output = await commiji(flags);
-    expect(output).toBe(defaultInquirerAnswer);
+    expect(output).toBeFalsy();
   });
 
   it('should ask no questions when all question flags are set', async () => {
@@ -43,19 +42,19 @@ describe('Test commiji', () => {
       dobreak: true,
     };
     const output = await commiji(flags);
-    expect(output).toBe(defaultInquirerAnswer);
+    expect(output).toBeFalsy();
   });
 
   it('should pick a random emoji for a random type', async () => {
     const flags = { type: 'random' };
     const output = await commiji(flags);
-    expect(output).toBe(defaultInquirerAnswer);
+    expect(output).toBeFalsy();
   });
 
   it('should pick a random emoji for an all type', async () => {
     const flags = { type: 'random' };
     const output = await commiji(flags);
-    expect(output).toBe(defaultInquirerAnswer);
+    expect(output).toBeFalsy();
   });
 
   it('should list all commitlint options', async () => {
