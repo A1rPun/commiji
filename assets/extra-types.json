@@ -1,0 +1,75 @@
+{
+  "init": [
+    {
+      "name": "airplane",
+      "ascii": "✈"
+    },
+    {
+      "name": "tada",
+      "ascii": "🎉"
+    },
+    {
+      "name": "rocket",
+      "ascii": "🚀"
+    }
+  ],
+  "os": [
+    {
+      "name": "pinguin",
+      "ascii": "🐧",
+      "label": "Linux"
+    },
+    {
+      "name": "apple",
+      "ascii": "🍎",
+      "label": "macOS"
+    },
+    {
+      "name": "robot",
+      "ascii": "🤖",
+      "label": "Android"
+    },
+    {
+      "name": "green_apple",
+      "ascii": "🍏",
+      "label": "iOS"
+    },
+    {
+      "name": "bento",
+      "ascii": "🍱",
+      "label": "Windows"
+    }
+  ],
+  "tools": [
+    {
+      "name": "whale",
+      "ascii": "🐳",
+      "label": "Docker"
+    },
+    {
+      "name": "wheel_of_dharma",
+      "ascii": "☸️",
+      "label": "Kubernetes"
+    },
+    {
+      "name": "seedling",
+      "ascii": "🌱",
+      "label": "Mongo"
+    },
+    {
+      "name": "elephant",
+      "ascii": "🐘",
+      "label": "PHP or Postgres"
+    },
+    {
+      "name": "coffee",
+      "ascii": "☕",
+      "label": "CoffeeScript"
+    },
+    {
+      "name": "hotsprings",
+      "ascii": "♨️",
+      "label": "Java"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "build": [
+    {
+      "name": "construction_worker",
+      "ascii": "👷"
+    },
+    {
+      "name": "construction",
+      "ascii": "🚧"
+    },
+    {
+      "name": "wrench",
+      "ascii": "🔧"
+    },
+    {
+      "name": "package",
+      "ascii": "📦"
+    }
+  ],
+  "ci": [
+    {
+      "name": "green_heart",
+      "ascii": "💚"
+    },
+    {
+      "name": "blue_heart",
+      "ascii": "💙"
+    },
+    {
+      "name": "purple_heart",
+      "ascii": "💜"
+    }
+  ],
+  "chore": [
+    {
+      "name": "fire",
+      "ascii": "🔥"
+    },
+    {
+      "name": "pushpin",
+      "ascii": "📌"
+    },
+    {
+      "name": "label",
+      "ascii": "🏷️"
+    },
+    {
+      "name": "speech_balloon",
+      "ascii": "💬"
+    },
+    {
+      "name": "poop",
+      "ascii": "💩"
+    }
+  ],
+  "docs": [
+    {
+      "name": "pencil",
+      "ascii": "📝"
+    },
+    {
+      "name": "pencil2",
+      "ascii": "✏️"
+    },
+    {
+      "name": "scroll",
+      "ascii": "📜"
+    },
+    {
+      "name": "bulb",
+      "ascii": "💡"
+    }
+  ],
+  "feat": [
+    {
+      "name": "sparkles",
+      "ascii": "✨"
+    },
+    {
+      "name": "star",
+      "ascii": "⭐"
+    },
+    {
+      "name": "triangular_flag_on_post",
+      "ascii": "🚩",
+      "label": "Feature flag"
+    }
+  ],
+  "fix": [
+    {
+      "name": "bug",
+      "ascii": "🐛"
+    },
+    {
+      "name": "lock",
+      "ascii": "🔒"
+    },
+    {
+      "name": "ambulance",
+      "ascii": "🚑"
+    }
+  ],
+  "perf": [
+    {
+      "name": "zap",
+      "ascii": "⚡"
+    },
+    {
+      "name": "dart",
+      "ascii": "🎯"
+    },
+    {
+      "name": "chart_with_upwards_trend",
+      "ascii": "📈"
+    }
+  ],
+  "refactor": [
+    {
+      "name": "cyclone",
+      "ascii": "🌀"
+    },
+    {
+      "name": "recycle",
+      "ascii": "♻️"
+    },
+    {
+      "name": "building_construction",
+      "ascii": "🏗"
+    }
+  ],
+  "revert": [
+    {
+      "name": "rewind",
+      "ascii": "⏪"
+    },
+    {
+      "name": "boom",
+      "ascii": "💥"
+    },
+    {
+      "name": "twisted_rightwards_arrows",
+      "ascii": "🔀",
+      "label": "Merge"
+    }
+  ],
+  "style": [
+    {
+      "name": "cop",
+      "ascii": "👮"
+    },
+    {
+      "name": "lipstick",
+      "ascii": "💄"
+    },
+    {
+      "name": "nail_care",
+      "ascii": "💅"
+    },
+    {
+      "name": "art",
+      "ascii": "🎨"
+    },
+    {
+      "name": "rotating_light",
+      "ascii": "🚨"
+    },
+    {
+      "name": "ok_hand",
+      "ascii": "👌"
+    }
+  ],
+  "test": [
+    {
+      "name": "white_check_mark",
+      "ascii": "✅"
+    },
+    {
+      "name": "heavy_check_mark",
+      "ascii": "✔️"
+    },
+    {
+      "name": "bar_chart",
+      "ascii": "📊"
+    },
+    {
+      "name": "goal_net",
+      "ascii": "🥅"
+    },
+    {
+      "name": "clown_face",
+      "ascii": "🤡",
+      "label": "Mocking"
+    },
+    {
+      "name": "alembic",
+      "ascii": "⚗",
+      "label": "Experiment"
+    }
+  ]
+}
