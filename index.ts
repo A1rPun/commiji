@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
-const promptCommit = require('./src/prompt.ts');
+const commiji = require('./src/commiji.ts');
 
 const cli = meow(
   `
@@ -19,7 +19,7 @@ const cli = meow(
 	  --type, -t  Provide answer for commit type
 	  --title, -c  Provide answer for commit title
 	  --scope, -s  Provide answer for scope
-	  --break, -b  Provide answer with breaking change
+	  --dobreak, -b  Provide answer with breaking change
 	  --nobreak, -n  Provide answer with non breaking change
 
   Examples
@@ -70,7 +70,7 @@ const cli = meow(
         type: 'string',
         alias: 's',
       },
-      break: {
+      dobreak: {
         type: 'boolean',
         alias: 'b',
       },
@@ -81,4 +81,9 @@ const cli = meow(
     },
   }
 );
-promptCommit(cli.flags);
+
+async function main() {
+  const output = await commiji(cli.flags);
+  if (output) console.log(output);
+}
+main();
